@@ -1,0 +1,14 @@
+{
+  "name": "blog-backend",
+  "version": "1.0.0",
+  "description": "My Blog Api",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "node src/index.ts"
+  },
+  "author": "igor-sant",
+  "license": "MIT",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.145"
+  }
+}
