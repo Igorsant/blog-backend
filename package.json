@@ -4,11 +4,18 @@
   "description": "My Blog Api",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
   },
   "author": "igor-sant",
   "license": "MIT",
   "dependencies": {
-    "@types/aws-lambda": "^8.10.145"
+    "@types/aws-lambda": "^8.10.145",
+    "@types/node": "^22.5.1",
+    "tslib": "^2.7.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
