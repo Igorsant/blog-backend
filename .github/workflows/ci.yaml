@@ -51,7 +51,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: function-zip
+          name: dist
           path: .
 
       - name: Configure AWS credentials
