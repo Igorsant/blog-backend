@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "rm -rf dist && tsc",
+    "zip": "zip -r dist.zip dist"
   },
   "author": "igor-sant",
   "license": "MIT",

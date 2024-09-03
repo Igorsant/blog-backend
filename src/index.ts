@@ -1,24 +1,28 @@
-import { createServer } from 'node:http';
-import { parse } from 'node:url';
-import { handler as myHelloWorldLambdaHandler } from './lambdas/MyHelloWorldLambda';
+import { APIGatewayEvent, Context, Callback, APIGatewayProxyResult } from 'aws-lambda';
 
-const server = createServer(async (req, res) => {
-  const parsedUrl = parse(req.url || '', true);
-  const path = parsedUrl.pathname;
+export const handler = async (event: { routeKey: string, rawPath: string, body: {}}, context: Context, callback: Callback<APIGatewayProxyResult>): Promise<APIGatewayProxyResult> => {
 
-  if (path === '/') {
-    const result = await myHelloWorldLambdaHandler({}, {}, () => {});
-    res.writeHead(result.statusCode, { 'Content-Type': 'text/plain' });
-    res.end(result.body);
-    return;
-  }
+    if (event.rawPath == "/") {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                message: 'Hello World!',
+            }),
+        };
+    }
+    if (event.rawPath == "/login" && event.routeKey.startsWith("POST")) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                message: 'Login!',
+            }),
+        };
+    }
 
-  res.writeHead(404, { 'Content-Type': 'text/plain' });
-  res.end('Not Found\n');
-
-});
-
-// starts a simple http server locally on port 3000
-server.listen(3000, '127.0.0.1', () => {
-  console.log('Listening on 127.0.0.1:3000');
-});
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: event,
+        }),
+    };
+};
