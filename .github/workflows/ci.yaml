@@ -62,6 +62,7 @@ jobs:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::103522055399:role/GithubActionsRole
           role-external-id: ${{ secrets.ROLE_EXTERNAL_ID }}
+          role-duration-seconds: 1200
           role-session-name: GithubBuildAndPushLambdaCode
           role-skip-session-tagging: true
 
