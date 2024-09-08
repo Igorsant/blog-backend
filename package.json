@@ -12,6 +12,7 @@
   "author": "igor-sant",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.645.0",
     "@types/aws-lambda": "^8.10.145",
     "@types/node": "^22.5.1",
     "tslib": "^2.7.0"
