@@ -10,9 +10,7 @@ const client = new CognitoIdentityProviderClient({
 });
 
 export const handleSignup = async (event: { body: any }) => {
-  const username = event.body.username;
-  const password = event.body.password;
-  const email = event.body.email;
+  const { username, password, email } = event.body;
 
   const secretHash = getSecretValue(
     username,
