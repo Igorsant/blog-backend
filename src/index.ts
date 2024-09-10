@@ -31,14 +31,14 @@ export const handler = async (
   };
 };
 
-const eventMock = {
-  routeKey: "POST /signup",
-  rawPath: "/signup",
-  body: {
-    username: "test",
-    password: "password",
-    email: "test",
-  },
-};
+// const eventMock = {
+//   routeKey: "POST /signup",
+//   rawPath: "/signup",
+//   body: {
+//     username: "test",
+//     password: "password",
+//     email: "test",
+//   },
+// };
 
-handler(eventMock, null, null);
+// handler(eventMock, null, null);
