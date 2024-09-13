@@ -1,6 +1,7 @@
 import { Context, Callback, APIGatewayProxyResult } from "aws-lambda";
 import { handleSignup } from "./signup";
 import { handleLogin } from "./login";
+import { handleConfirmSignup } from "./confirmSignUp";
 
 export const handler = async (
   event: { routeKey: string; rawPath: string; body: any },
@@ -23,6 +24,10 @@ export const handler = async (
     return await handleSignup(event);
   }
 
+  if (event.rawPath == "/confirm" && event.routeKey.startsWith("POST")) {
+    return await handleConfirmSignup(event);
+  }
+
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -32,13 +37,12 @@ export const handler = async (
 };
 
 // const eventMock = {
-//   routeKey: "POST /signup",
-//   rawPath: "/signup",
+//   routeKey: "POST ",
+//   rawPath: "/login",
 //   body: {
-//     username: "test",
-//     password: "password",
-//     email: "test",
+//     username: "igor",
+//     password: "Ig123...",
 //   },
 // };
 
-// handler(eventMock, null, null);
+// handler(eventMock, null, null).then(data => console.log(data))
