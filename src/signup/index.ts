@@ -5,10 +5,15 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { getSecretValue } from "../util";
 
-export const handleSignup = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
-  const username= event.body.username;
-  const email = event.body.email;
-  const password = event.body.password;
+export const handleSignup = async (
+  event: { body: any },
+  client: CognitoIdentityProviderClient
+) => {
+  const requestBody = typeof event.body === "string" ? JSON.parse(event.body) : event.body
+  const username = requestBody.username;
+  const email = requestBody.email;
+  const password = requestBody.password;
+  console.log(username, email, password);
 
   const secretHash = getSecretValue(
     username,
@@ -30,17 +35,17 @@ export const handleSignup = async (event: { body: any }, client: CognitoIdentity
     ],
   });
   try {
-    const response = await client.send(singupCommand)
-    console.log(response)
+    const response = await client.send(singupCommand);
+    console.log(response);
     return {
       statusCode: 201,
       body: JSON.stringify(response),
-    }
+    };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
       statusCode: 400,
       body: JSON.stringify(error),
-    }
+    };
   }
 };
