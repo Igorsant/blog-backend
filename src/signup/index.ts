@@ -9,10 +9,8 @@ export const handleSignup = async (
   event: { body: any },
   client: CognitoIdentityProviderClient
 ) => {
-  const requestBody = typeof event.body === "string" ? JSON.parse(event.body) : event.body
-  const username = requestBody.username;
-  const email = requestBody.email;
-  const password = requestBody.password;
+  const { username, email, password} = typeof event.body === "string" ? JSON.parse(event.body) : event.body
+
   console.log(username, email, password);
 
   const secretHash = getSecretValue(
