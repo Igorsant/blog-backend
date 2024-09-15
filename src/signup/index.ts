@@ -6,7 +6,9 @@ import {
 import { getSecretValue } from "../util";
 
 export const handleSignup = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
-  const { username, password, email } = JSON.parse(event.body);
+  const username= event.body.username;
+  const email = event.body.email;
+  const password = event.body.password;
 
   const secretHash = getSecretValue(
     username,
