@@ -11,8 +11,6 @@ export const handleSignup = async (
 ) => {
   const { username, email, password} = typeof event.body === "string" ? JSON.parse(event.body) : event.body
 
-  console.log(username, email, password);
-
   const secretHash = getSecretValue(
     username,
     process.env.COGNITO_CLIENT_ID as string,
