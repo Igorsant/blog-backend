@@ -29,11 +29,13 @@ export const handleSignup = async (event: { body: any }, client: CognitoIdentity
   });
   try {
     const response = await client.send(singupCommand)
+    console.log(response)
     return {
       statusCode: 201,
       body: JSON.stringify(response),
     }
   } catch (error) {
+    console.log(error)
     return {
       statusCode: 400,
       body: JSON.stringify(error),
