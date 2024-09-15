@@ -5,13 +5,9 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { getSecretValue } from "../util";
 
-const client = new CognitoIdentityProviderClient({
-  region: "us-east-1",
-});
-
-export const handleSignup = async (event: { body: any }) => {
+export const handleSignup = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
   const { username, password, email } = event.body;
-
+  console.log("testteee")
   const secretHash = getSecretValue(
     username,
     process.env.COGNITO_CLIENT_ID as string,

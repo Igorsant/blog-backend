@@ -2,47 +2,60 @@ import { Context, Callback, APIGatewayProxyResult } from "aws-lambda";
 import { handleSignup } from "./signup";
 import { handleLogin } from "./login";
 import { handleConfirmSignup } from "./confirmSignUp";
+import { CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
+import { handleConfirmForgotPassword } from "./confirmForgotPassword";
+import { handleForgotPassword } from "./forgotPassword";
+
+type Event = {
+  routeKey: string;
+  rawPath: string;
+  body: any;
+};
 
 export const handler = async (
-  event: { routeKey: string; rawPath: string; body: any },
+  event: Event,
   context: Context | null,
   callback: Callback<APIGatewayProxyResult> | null
 ): Promise<APIGatewayProxyResult> => {
-  if (event.rawPath == "/") {
-    return {
+  const client = new CognitoIdentityProviderClient({
+    region: "us-east-1",
+  });
+
+  const routesResolvers: {
+    [key: string]: (
+      event: {
+        body: any;
+      },
+      client: CognitoIdentityProviderClient
+    ) => Promise<{
+      statusCode: number;
+      body: string;
+    }>;
+  } = {
+    "/": (event, client) => Promise.resolve({
       statusCode: 200,
       body: JSON.stringify({
         message: "Hello World!",
       }),
-    };
-  }
-
-  if (event.rawPath == "/login" && event.routeKey.startsWith("POST")) {
-    return await handleLogin(event);
-  }
-  if (event.rawPath == "/signup" && event.routeKey.startsWith("POST")) {
-    return await handleSignup(event);
-  }
-
-  if (event.rawPath == "/confirm" && event.routeKey.startsWith("POST")) {
-    return await handleConfirmSignup(event);
-  }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: event,
     }),
+    "/login": handleLogin,
+    "/signup": handleSignup,
+    "/confirm": handleConfirmSignup,
+    "/confirmForgotPassword": handleConfirmForgotPassword,
+    "/forgotPassword": handleForgotPassword,
   };
+
+  return await routesResolvers[event.rawPath](event, client);
 };
 
 // const eventMock = {
 //   routeKey: "POST ",
-//   rawPath: "/login",
+//   rawPath: "/signup",
 //   body: {
 //     username: "igor",
+//     email: "igorsantos381@gmail.com",
 //     password: "Ig123...",
 //   },
 // };
 
-// handler(eventMock, null, null).then(data => console.log(data))
+// handler(eventMock, null, null).then((data) => console.log(data));

@@ -1,7 +1,7 @@
 import { CognitoIdentityProviderClient, InitiateAuthCommand, UserNotFoundException } from "@aws-sdk/client-cognito-identity-provider";
 import { getSecretValue } from "../util";
 
-export const handleLogin = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
+export const handleConfirmForgotPassword = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
   const { username, password, email } = event.body;
 
   const secretHash = getSecretValue(
