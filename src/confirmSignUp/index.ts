@@ -2,7 +2,7 @@ import { CognitoIdentityProviderClient, ConfirmSignUpCommand } from "@aws-sdk/cl
 import { getSecretValue } from "../util";
 
 export const handleConfirmSignup = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
-  const { username, code } = event.body;
+  const { username, code } = JSON.parse(event.body);
 
   const secretHash = getSecretValue(
     username,

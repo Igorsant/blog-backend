@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "build": "rm -rf dist && tsc",
     "zip": "zip -r dist.zip dist",
-    "test": "echo \"Error: no test specified\""
+    "test": "ts-node src/index.test.ts"
   },
   "author": "igor-sant",
   "license": "MIT",

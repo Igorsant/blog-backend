@@ -2,7 +2,7 @@ import { CognitoIdentityProviderClient, InitiateAuthCommand, UserNotFoundExcepti
 import { getSecretValue } from "../util";
 
 export const handleLogin = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
-  const { username, password} = typeof event.body === "string" ? JSON.parse(event.body) : event.body
+  const { username, password} = JSON.parse(event.body)
 
   const secretHash = getSecretValue(
     username,
@@ -26,7 +26,7 @@ export const handleLogin = async (event: { body: any }, client: CognitoIdentityP
       body: JSON.stringify(response),
     }
   } catch (error: any) {
-    console.log(error.name)
+    console.log(error)
     return {
       statusCode: 400,
       body: JSON.stringify(error),

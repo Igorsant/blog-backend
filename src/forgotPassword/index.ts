@@ -2,7 +2,7 @@ import { CognitoIdentityProviderClient, InitiateAuthCommand, UserNotFoundExcepti
 import { getSecretValue } from "../util";
 
 export const handleForgotPassword = async (event: { body: any }, client: CognitoIdentityProviderClient) => {
-  const { username, password, email } = event.body;
+  const { username, password, email } = JSON.parse(event.body);
 
   const secretHash = getSecretValue(
     username,
