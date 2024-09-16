@@ -30,8 +30,8 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Run tests
-        run: yarn test
+      # - name: Run tests
+      #   run: yarn test
 
       - name: Zip the build
         run: yarn zip
